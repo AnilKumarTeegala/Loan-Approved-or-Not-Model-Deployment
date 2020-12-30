@@ -11,7 +11,7 @@ app = Flask(__name__)
 
 # load the saved model
 def load_model():
-    return pickle.load(open('models\loan_xgc_model.pkl','rb'))
+    return pickle.load(open('models\\loan_xgc_model.pkl','rb'))
 
 # home page
 @app.route('/')
@@ -21,21 +21,18 @@ def home():
 # predict the results and return it to frontend
 
 def create_example(values):
-    example_dict = OrderedDict()
+    dict = OrderedDict()
     property_dict = OrderedDict()
     cols = ['Gender', 'Married', 'Dependents', 'Education', 'Self_Employed',
     'ApplicantIncome', 'CoapplicantIncome', 'LoanAmount', 'Loan_Amount_Term',
-    'Credit_History']
+    'Credit_History', 'Property_Area']
 
     for col, value in zip(cols, values):
-        if col in num:
-            example_dict[col] = float(value)
-        else:
-            example_dict[col] = str(value)
+            dict[col] = float(value)
 
-    example_df = pd.DataFrame(example_dict, index=[0])
+    df = pd.DataFrame(dict, index=[0])
 
-    return example
+    return df
 
 
 @app.route('/predict', methods=['POST'])
